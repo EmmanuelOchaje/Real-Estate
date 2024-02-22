@@ -1,0 +1,35 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const popup = document.getElementById('popup-overlay');
+    const popupClose = document.getElementById('popup-close');
+    const scrollThreshold = 0.9; // 90% scroll threshold
+    let isPopupShown = false;
+
+    // Function to check scroll position and show the popup
+    function checkScrollPosition() {
+        if (!isPopupShown) {
+            const scrollY = window.scrollY || window.pageYOffset;
+            const windowHeight = window.innerHeight;
+            const pageHeight = document.documentElement.scrollHeight;
+
+            const scrollPercentage = scrollY / (pageHeight - windowHeight);
+
+            if (scrollPercentage >= scrollThreshold) {
+                popup.style.display = 'block';
+                isPopupShown = true;
+            }
+        }
+    }
+
+    // Function to close the popup
+    function closePopup() {
+        popup.style.display = 'none';
+    }
+
+    // Add scroll event listener
+    window.addEventListener('scroll', checkScrollPosition);
+
+    // Add click event listener to close button
+    if (popupClose) {
+        popupClose.addEventListener('click', closePopup);
+    }
+});
